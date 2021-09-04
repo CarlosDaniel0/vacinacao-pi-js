@@ -86,7 +86,7 @@ async function example() {
         if (err) console.log(err)
       })
       await Doses.insertMany(doses).catch((err) => {
-        console.log(err)
+        if (err) console.log(err)
       })
 
       db.disconnect()

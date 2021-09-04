@@ -1,3 +1,5 @@
+const CsvParser = require('json2csv').Parser
+
 const mapDoses = (data) => {
   let doses = []
 
@@ -17,4 +19,38 @@ const mapDoses = (data) => {
   return doses
 }
 
-module.exports = { mapDoses }
+const toCsv = (data) => {
+  let doses = []
+
+  data.map((obj) => {
+    const {
+      municipio,
+      doses_distribuidas,
+      doses_aplicadas,
+      porcentagem,
+      data,
+    } = obj
+
+    doses.push({
+      municipio,
+      doses_distribuidas,
+      doses_aplicadas,
+      porcentagem,
+      data,
+    })
+  })
+
+  const csvFields = [
+    'municipio',
+    'doses_distribuidas',
+    'doses_aplicadas',
+    'porcentagem',
+    'data',
+  ]
+  const csvParser = new CsvParser({ csvFields })
+  const csvData = csvParser.parse(doses)
+
+  return csvData
+}
+
+module.exports = { mapDoses, toCsv }
