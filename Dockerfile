@@ -19,4 +19,7 @@ RUN chmod +x install-geckodriver.sh
 
 RUN sh ./install-geckodriver.sh
 
-CMD ["node", "src"]
+# Development
+# EXPOSE 3000
+
+CMD ["npm", "run", "start"]

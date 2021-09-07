@@ -47,7 +47,10 @@ const toCsv = (data) => {
     'porcentagem',
     'data',
   ]
-  const csvParser = new CsvParser({ csvFields })
+  const csvParser = new CsvParser({
+    csvFields,
+    withBOM: true,
+  })
   const csvData = csvParser.parse(doses)
 
   return csvData

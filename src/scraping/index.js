@@ -91,7 +91,7 @@ async function example() {
 
       db.disconnect()
 
-      // Remover arquivo se downloads
+      // Remover arquivo da pasta downloads
       fs.rm(`${__dirname}/downloads/${files[0]}`, (err) => {
         if (err) console.log(err)
       })

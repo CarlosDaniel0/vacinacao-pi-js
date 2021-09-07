@@ -3,7 +3,7 @@ const router = express.Router()
 const doses = require('./doses')
 
 router.get('/', async (req, res) => {
-  res.send('Página em construção')
+  res.render('pages/index')
 })
 router.use('/doses', doses)
 
