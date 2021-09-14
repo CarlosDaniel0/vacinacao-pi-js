@@ -11,7 +11,7 @@ const mapDoses = (data) => {
       doses_aplicadas: data[i][2],
       porcentagem: isNaN(data[i][3])
         ? 0.0
-        : Number(Number(data[i][3]).toFixed(2)),
+        : Number(Number(data[i][3]).toFixed(4)) * 100,
     }
 
     doses.push(dose)
