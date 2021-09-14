@@ -1,4 +1,5 @@
 const CsvParser = require('json2csv').Parser
+const fs = require('fs')
 
 const mapDoses = (data) => {
   let doses = []
@@ -19,10 +20,33 @@ const mapDoses = (data) => {
   return doses
 }
 
-const toCsv = (data) => {
+const getData = (path) =>
+  new Promise((resolve, reject) => {
+    fs.readFile(path, (err, file) => {
+      if (err) return reject(err)
+      let res = []
+      const data = file.toString().split(/\r?\n/)
+
+      data.map((e) => {
+        res.push(e.split(','))
+      })
+
+      return resolve(res)
+    })
+  })
+
+const toCsv = async (data) => {
   let doses = []
+  let dir = __dirname.split('/')
+  dir.pop()
+  dir = dir.join('/')
+
+  let csv = await getData(`${dir}/public/assets/nomes_municipios.csv`)
+
+  csv.shift()
 
   data.map((obj) => {
+    const item = csv.find((element) => element[1] == obj.municipio)
     const {
       municipio,
       doses_distribuidas,
@@ -31,28 +55,34 @@ const toCsv = (data) => {
       data,
     } = obj
 
-    doses.push({
-      municipio,
-      doses_distribuidas,
-      doses_aplicadas,
-      porcentagem,
-      data,
-    })
+    if (item) {
+      doses.push({
+        codarea: Number(item[0]),
+        municipio,
+        doses_distribuidas,
+        doses_aplicadas,
+        porcentagem,
+        data,
+      })
+    }
   })
 
   const csvFields = [
+    'codarea',
     'municipio',
     'doses_distribuidas',
     'doses_aplicadas',
     'porcentagem',
     'data',
   ]
+
+  //'codarea', 'municipio', 'total_doses', 'doses_aplicadas', 'porcentagem'
   const csvParser = new CsvParser({
     csvFields,
     withBOM: true,
   })
-  const csvData = csvParser.parse(doses)
 
+  const csvData = csvParser.parse(doses)
   return csvData
 }
 

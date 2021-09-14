@@ -16,7 +16,7 @@ const getAll = async (req, res) => {
 
   if (!req.query.type) res.send(doses)
   if (req.query.type == 'csv') {
-    doses = toCsv(doses)
+    doses = await toCsv(doses)
     res.setHeader('Content-Type', 'text/csv')
     res.setHeader('Content-Disposition', 'attachment; filename=data.csv')
     res.send(doses).end()
