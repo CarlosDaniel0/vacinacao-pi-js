@@ -44,9 +44,12 @@ const toCsv = async (data) => {
   let csv = await getData(`${dir}/public/assets/nomes_municipios.csv`)
 
   csv.shift()
-
   data.map((obj) => {
-    const item = csv.find((element) => element[1] == obj.municipio)
+    const item = csv.find(
+      (element) =>
+        element[1].toLocaleLowerCase() == obj.municipio.toLocaleLowerCase()
+    )
+
     const {
       municipio,
       doses_distribuidas,
@@ -82,6 +85,7 @@ const toCsv = async (data) => {
     withBOM: true,
   })
 
+  console.log(doses.length)
   const csvData = csvParser.parse(doses)
   return csvData
 }
