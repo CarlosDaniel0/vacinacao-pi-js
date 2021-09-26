@@ -28,7 +28,8 @@ async function example() {
       'https://qsprod.saude.gov.br/extensions/DEMAS_C19Vacina/DEMAS_C19Vacina.html'
     )
 
-    await driver.sleep(10000)
+    await driver.sleep(20000)
+    console.log('Página Carregada')
 
     await driver.executeScript(
       "document.querySelector('table').scrollIntoView()"
@@ -39,6 +40,7 @@ async function example() {
     )
     // Click no + de Nordeste
     await elements[6].click()
+    console.log('Clicou no + de Nordeste')
     await driver.sleep(2000)
 
     elements = await driver.findElements(
@@ -46,21 +48,25 @@ async function example() {
     )
     // Click no - de AL
     await elements[13].click()
-    await driver.sleep(5000)
+    console.log('Clicou no - de AL')
+    await driver.sleep(10000)
 
     elements = await driver.findElements(
       By.xpath("//table[@class='ng-scope']//td")
     )
     // Click no + de PI
     await elements[56].click()
+    console.log('Clicou no PI')
     await driver.sleep(5000)
 
     await driver.executeScript(
       "document.querySelector('#QV1-G11A').scrollIntoView()"
     )
+    console.log('Encontrou o gráfico com os dados')
     await driver.sleep(2000)
 
     await driver.findElement(By.xpath("//div[@id='QV1-G11A-menu']")).click()
+    console.log('Fez o Download')
     await driver.sleep(5000)
   } finally {
     await driver.quit()
