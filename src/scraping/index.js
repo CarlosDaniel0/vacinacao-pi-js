@@ -17,7 +17,7 @@ async function example() {
     'browser.helperApps.neverAsk.saveToDisk',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   )
-  options.headless()
+  //options.headless()
   let driver = await new Builder()
     .forBrowser('firefox')
     .setFirefoxOptions(options)
@@ -28,7 +28,7 @@ async function example() {
       'https://qsprod.saude.gov.br/extensions/DEMAS_C19Vacina/DEMAS_C19Vacina.html'
     )
 
-    await driver.sleep(20000)
+    await driver.sleep(30000)
     console.log('Página Carregada')
 
     await driver.executeScript(
@@ -49,7 +49,7 @@ async function example() {
     // Click no - de AL
     await elements[13].click()
     console.log('Clicou no - de AL')
-    await driver.sleep(10000)
+    await driver.sleep(20000)
 
     elements = await driver.findElements(
       By.xpath("//table[@class='ng-scope']//td")
@@ -57,7 +57,7 @@ async function example() {
     // Click no + de PI
     await elements[56].click()
     console.log('Clicou no PI')
-    await driver.sleep(5000)
+    await driver.sleep(20000)
 
     await driver.executeScript(
       "document.querySelector('#QV1-G11A').scrollIntoView()"
@@ -96,11 +96,13 @@ async function example() {
       })
 
       db.disconnect()
+      console.log('Salvou na base dados')
 
       // Remover arquivo da pasta downloads
       fs.rm(`${__dirname}/downloads/${files[0]}`, (err) => {
         if (err) console.log(err)
       })
+      console.log('Deletou o arquivo do servidor')
     })
   } catch (err) {
     console.log(err)
