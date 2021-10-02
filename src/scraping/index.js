@@ -17,7 +17,7 @@ async function example() {
     'browser.helperApps.neverAsk.saveToDisk',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   )
-  //options.headless()
+  options.headless()
   let driver = await new Builder()
     .forBrowser('firefox')
     .setFirefoxOptions(options)
