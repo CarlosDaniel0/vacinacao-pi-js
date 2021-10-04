@@ -41,7 +41,7 @@ async function example() {
     // Click no + de Nordeste
     await elements[6].click()
     console.log('Clicou no + de Nordeste')
-    await driver.sleep(2000)
+    await driver.sleep(10000)
 
     elements = await driver.findElements(
       By.xpath("//table[@class='ng-scope']//td")
